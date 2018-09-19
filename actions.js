@@ -1,56 +1,48 @@
-import uuid from 'uuid';
+import uuid from uuid;
 
 const ADD_COMMENT = 'ADD_COMMENT';
 const EDIT_COMMENT = 'EDIT_COMMENT';
 const REMOVE_COMMENT = 'REMOVE_COMMENT';
 const THUMB_UP_COMMENT = 'THUMB_UP_COMMENT';
 const THUMB_DOWN_COMMENT = 'THUMB_DOWN_COMMENT';
+ 
 
-function addComment(text) {
+const addComment = text => {
     return {
         type: ADD_COMMENT,
         text,
-        id: uuid.v4()
-    };
-}
+        id: uuid.v4(),
+        votes: 0
+    }
+};
 
-const boundAddComment = text => dispatch(addComment(text));
-
-function editComment(text, id) {
+const editComment = (text, id) => {
     return {
         type: EDIT_COMMENT,
         text,
         id
     }
-}
-    
-const boundEditComment = (text, id) => dispatch(editComment(text, id));
-    
-function removeComment(id) {
+};
+
+const removeComment = id => {
     return {
         type: REMOVE_COMMENT,
         id
     }
-}
+};
 
-const boundRemoveComment = (id) => dispatch(removeComment(id));
-
-function thumbUpComment(id, thumbups) {
+const thumbUpComment = (votes, id) => {
     return {
         type: THUMB_UP_COMMENT,
-        id,
-        thumbups: ++thumbups
+        votes: votes + 1,
+        id
     }
-}
+};
 
-const boundThumbUpComment = (id, thumbups) => dispatch(thumbUpComment(id, thumbups));
-
-function thumbDownComment(id, thumbdowns) {
+const thumbDownComment = (votes, id) => {
     return {
         type: THUMB_DOWN_COMMENT,
-        id,
-        thumbdowns: ++thumbdowns
+        votes: votes - 1,
+        id
     }
-}
-
-const boundThumbDownWComment = (id, thumbdowns) => dispatch(thumbDownComment(id, thumbdowns)); 
+};
